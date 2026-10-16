@@ -55,8 +55,6 @@ Adheres strictly to Indian NPCI standards with zero third-party platform gateway
 ---
 
 ## 🔐 Administrative Operations Portal
-- **Route:** `/admin`
-- **Default Demo Passkey:** `admin123`
 - **Capabilities:**
   1. **Verify UPI Payments:** Review UTR, amount, customer contact, and click *Verify* or *Reject* (with reason).
   2. **Quotation Delivery:** Review customer 3D models (STL, STEP, 3MF), enter quoted amount in INR, material grams, and machine hours.
@@ -71,7 +69,7 @@ Adheres strictly to Indian NPCI standards with zero third-party platform gateway
 - Zero external paid AI API costs.
 - Instant actions: Track Order, 3D Print Quote Guide, UPI Payment Procedure, Speed Post Shipping, Digital Licensing.
 - Authenticated order lookup: Retrieves real order status only when an exact matching order ID (e.g. `ORD-XXXXXX`) or registered phone is supplied.
-- Direct escalation to WhatsApp (`+91 99887 76655`).
+- Direct escalation to WhatsApp (`+917989064266`).
 
 ---
 
