@@ -256,3 +256,36 @@ button:disabled,[role="button"][aria-disabled="true"] { opacity: .55; cursor: no
 @media (max-width: 380px) {
   .product-grid { grid-template-columns: minmax(0, 1fr) !important; }
 }
+
+
+/* High contrast in the light theme as well. */
+html:not([data-theme-mode="dark"]) .product-card,
+html:not([data-theme-mode="dark"]) .product-copy,
+html:not([data-theme-mode="dark"]) .product-title-link h3,
+html:not([data-theme-mode="dark"]) .product-price {
+  color: #191b20 !important;
+}
+html:not([data-theme-mode="dark"]) .product-subtitle,
+html:not([data-theme-mode="dark"]) .section-deck,
+html:not([data-theme-mode="dark"]) .page-hero>p,
+html:not([data-theme-mode="dark"]) .service-heading>p,
+html:not([data-theme-mode="dark"]) .service-row p,
+html:not([data-theme-mode="dark"]) .process-step p {
+  color: #454a52 !important;
+}
+html:not([data-theme-mode="dark"]) .product-price small {
+  color: #595f69 !important;
+}
+.product-add, .button-primary, .button-secondary, .btn-primary, .btn-outline,
+.theme-toggle-button, .menu-toggle, .cart-button, .header-icon-button,
+.account-button, .filter-chip {
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+.product-add:focus-visible, .button-primary:focus-visible, .button-secondary:focus-visible,
+.btn-primary:focus-visible, .btn-outline:focus-visible, .theme-toggle-button:focus-visible,
+.menu-toggle:focus-visible, .cart-button:focus-visible, .header-icon-button:focus-visible,
+.account-button:focus-visible, .filter-chip:focus-visible {
+  outline: 3px solid #3765ff !important;
+  outline-offset: 3px !important;
+}
