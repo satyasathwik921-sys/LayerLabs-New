@@ -128,3 +128,54 @@ html[data-theme-mode="dark"] .theme-toggle-button {
   .process-step p { font-size: 14px !important; line-height: 1.75 !important; }
   .theme-toggle-button { width: 34px; height: 34px; margin-inline: 2px; }
 }
+
+
+html[data-theme-mode="dark"] {
+  --ink: #f1f2f4;
+  --paper: #111318;
+  --blue: #8ca7ff;
+  --line: #363c47;
+  --muted: #b5bbc6;
+  --ll-accent: #8ca7ff;
+  color-scheme: dark;
+}
+html[data-theme-mode="dark"] .category-card-image,
+html[data-theme-mode="dark"] .portfolio-tile,
+html[data-theme-mode="dark"] .projects-gallery-image,
+html[data-theme-mode="dark"] .info-section,
+html[data-theme-mode="dark"] .capability-item,
+html[data-theme-mode="dark"] .service-spec-list,
+html[data-theme-mode="dark"] .category-card,
+html[data-theme-mode="dark"] .projects-page {
+  background-color: #171a20 !important;
+}
+html[data-theme-mode="dark"] .category-card-image img,
+html[data-theme-mode="dark"] .portfolio-tile img,
+html[data-theme-mode="dark"] .projects-gallery-image img {
+  background-color: #1e2229;
+}
+html[data-theme-mode="dark"] .eyebrow,
+html[data-theme-mode="dark"] .service-capability-kicker,
+html[data-theme-mode="dark"] .category-number,
+html[data-theme-mode="dark"] .service-spec-list li {
+  color: #b5bbc6 !important;
+}
+html[data-theme-mode="dark"] .capability-item,
+html[data-theme-mode="dark"] .service-capability {
+  border-color: #363c47 !important;
+}
+html[data-theme-mode="dark"] .service-capability h2,
+html[data-theme-mode="dark"] .service-capability p,
+html[data-theme-mode="dark"] .service-spec-list {
+  color: #e7eaf0 !important;
+}
+html[data-theme-mode="dark"] .cart-button,
+html[data-theme-mode="dark"] .header-icon-button,
+html[data-theme-mode="dark"] .account-button,
+html[data-theme-mode="dark"] .nav-link,
+html[data-theme-mode="dark"] .menu-toggle {
+  color: #f1f2f4 !important;
+}
+html[data-theme-mode="dark"] .site-header {
+  border-bottom-color: #363c47 !important;
+}
