@@ -289,3 +289,20 @@ html:not([data-theme-mode="dark"]) .product-price small {
   outline: 3px solid #3765ff !important;
   outline-offset: 3px !important;
 }
+
+
+.intro-strip p {
+  max-width: 780px !important;
+  margin-top: 0 !important;
+  font-family: Manrope, Arial, sans-serif !important;
+  font-size: clamp(24px, 3vw, 38px) !important;
+  line-height: 1.42 !important;
+  font-weight: 650 !important;
+  letter-spacing: -.035em !important;
+}
+html[data-theme-mode="dark"] .intro-strip p { color: #f4f5f7 !important; }
+html:not([data-theme-mode="dark"]) .intro-strip p { color: #191b20 !important; }
+@media(max-width:760px) {
+  .intro-strip { grid-template-columns: minmax(0,1fr) !important; gap: 12px !important; padding: 34px 0 !important; }
+  .intro-strip p { font-size: 25px !important; line-height: 1.48 !important; }
+}
