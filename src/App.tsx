@@ -28,7 +28,7 @@ const isDigital = (product: Product) =>
   product.isDigital === true || ["digital", "digital-model", "digital-download"].includes((product.productType || "").toLowerCase());
 const newOrderId = () =>
   "ORD-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
-const safeExternal = (url?: string) => {
+const safeExternal = (url?: string | null) => {
   if (!url) return undefined;
   try {
     const parsed = new URL(url);
@@ -302,7 +302,7 @@ function OrderStatus({ status }: { status: string }) {
   const tone = normalized.includes("REJECT") || normalized.includes("CANCEL") ? "danger" :
     normalized.includes("PENDING") || normalized.includes("REQUESTED") ? "warning" :
     normalized.includes("VERIFIED") || normalized.includes("DELIVERED") ? "success" : "neutral";
-  return <span className={"status-pill " + tone}>{normalized.replaceAll("_", " ")}</span>;
+  return <span className={"status-pill " + tone}>{normalized.replace(/_/g, " ")}</span>;
 }
 
 function OrderDetails({ order, onCancel }: { order: StoreOrder; onCancel?: () => void }) {
@@ -313,7 +313,7 @@ function OrderDetails({ order, onCancel }: { order: StoreOrder; onCancel?: () =>
     <h3>Items</h3>{(order.items || []).map((line, index) => <div className="order-item" key={line.product.id + "-" + index}><div><strong>{line.product.name}</strong><small>{line.quantity} × {formatINR(Number(line.product.salePrice ?? line.product.price))}{line.selectedColor ? " · " + line.selectedColor : ""}{line.selectedMaterial ? " · " + line.selectedMaterial : ""}</small></div></div>)}
     {order.rejection_reason && <div className="notice notice-warning">Payment review note: {order.rejection_reason}</div>}
     {order.tracking_number && <div className="notice"><strong>Tracking number:</strong> {order.tracking_number}{order.courier_name ? " · " + order.courier_name : ""}{safeExternal(order.tracking_url) && <p><a href={safeExternal(order.tracking_url)} target="_blank" rel="noreferrer">Track shipment ↗</a></p>}</div>}
-    {order.refund_status && order.refund_status !== "NOT_REQUESTED" && <div className="notice notice-warning"><strong>Refund status:</strong> {order.refund_status.replaceAll("_", " ")}<p>{order.refund_note || "Refunds are reviewed and processed manually; this status is not proof that money has been transferred."}</p></div>}
+    {order.refund_status && order.refund_status !== "NOT_REQUESTED" && <div className="notice notice-warning"><strong>Refund status:</strong> {order.refund_status.replace(/_/g, " ")}<p>{order.refund_note || "Refunds are reviewed and processed manually; this status is not proof that money has been transferred."}</p></div>}
     {canCancel && onCancel && <div className="order-result-actions"><button className="button-secondary danger-button" onClick={onCancel}>Request cancellation</button></div>}
     <p className="muted small">Payment verification and any refund are handled manually by LayerLabs. Use the same checkout email to access this order.</p>
   </section>;
