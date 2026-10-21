@@ -60,6 +60,30 @@
     attachThemeButton(button);
   }
 
+
+  function wireRootRelativeNavigation() {
+    if (document.documentElement.dataset.layerlabsNavigationWired === "true") return;
+    document.documentElement.dataset.layerlabsNavigationWired = "true";
+
+    document.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = event.target instanceof Element ? event.target.closest("a[href]") : null;
+      if (!target || target.hasAttribute("download")) return;
+      if (target.target && target.target.toLowerCase() !== "_self") return;
+      const rawHref = target.getAttribute("href");
+      if (!rawHref || !rawHref.startsWith("/") || rawHref.startsWith("//")) return;
+      if (/\.(?:avif|bmp|csv|gif|ico|jpe?g|json|pdf|png|stl|stp|step|svg|txt|webp|zip|3mf|obj)$/i.test(rawHref.split(/[?#]/)[0])) return;
+
+      const destination = new URL(rawHref, window.location.origin);
+      if (destination.origin !== window.location.origin) return;
+      event.preventDefault();
+      event.stopPropagation();
+      window.history.pushState({}, "", destination.pathname + destination.search + destination.hash);
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, true);
+  }
+
   function simplifyIntro() {
     document.querySelectorAll(".intro-strip p").forEach((node) => {
       if (node.textContent !== introCopy) node.textContent = introCopy;
@@ -83,6 +107,7 @@
   }
 
   function start() {
+    wireRootRelativeNavigation();
     applyTheme(safeStorage.get() === "dark" ? "dark" : "light");
     enhance();
     const observer = new MutationObserver(() => {
