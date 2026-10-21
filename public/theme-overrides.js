@@ -6,6 +6,13 @@
     const resolved = mode === "dark" ? "dark" : "light";
     document.documentElement.dataset.themeMode = resolved;
     try { localStorage.setItem(key, resolved); } catch {}
+    const themeColor = document.querySelector('meta[name="theme-color"]') || (() => {
+      const meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
+      return meta;
+    })();
+    themeColor.content = resolved === "dark" ? "#111318" : "#f8f8f6";
     const button = document.querySelector(".theme-toggle-button");
     if (button) {
       const next = resolved === "dark" ? "light" : "dark";
