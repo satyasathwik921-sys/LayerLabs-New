@@ -6,6 +6,13 @@ create schema if not exists private;
 revoke all on schema private from public, anon, authenticated;
 grant usage on schema private to postgres, service_role;
 
+-- The browser needs a read-only catalogue. Publication writes remain admin-only under RLS.
+revoke all privileges on table public.store_catalog from public, anon, authenticated;
+grant select on table public.store_catalog to anon, authenticated;
+grant insert, update on table public.store_catalog to authenticated;
+grant all privileges on table public.store_catalog to service_role;
+
+
 create table if not exists public.store_order_audit_log (
   id uuid primary key default gen_random_uuid(),
   order_number text not null,
