@@ -100,6 +100,8 @@ declare
   v_clean_items jsonb := '[]'::jsonb;
   v_requested jsonb := '{}'::jsonb;
   v_product_id text;
+  v_selected_color text;
+  v_selected_material text;
   v_coupon text;
   v_quantity integer;
   v_prior_quantity integer;
@@ -198,6 +200,24 @@ begin
     if v_product is null or coalesce(v_product ->> 'status', 'published') <> 'published' then
       raise exception 'A product in your bag is no longer available. Refresh the catalogue and try again.';
     end if;
+
+    -- Preserve only variant selections that the published product explicitly offers.
+    v_selected_color := nullif(btrim(coalesce(v_item ->> 'selectedColor', '')), '');
+    if v_selected_color is not null and not exists (
+      select 1 from jsonb_array_elements_text(coalesce(v_product #> '{variants,colors}', '[]'::jsonb)) as color(value)
+      where color.value = v_selected_color
+    ) then
+      raise exception 'The selected color for % is no longer available.', v_product ->> 'name';
+    end if;
+
+    v_selected_material := nullif(btrim(coalesce(v_item ->> 'selectedMaterial', '')), '');
+    if v_selected_material is not null and not exists (
+      select 1 from jsonb_array_elements_text(coalesce(v_product #> '{variants,materials}', '[]'::jsonb)) as material(value)
+      where material.value = v_selected_material
+    ) then
+      raise exception 'The selected material for % is no longer available.', v_product ->> 'name';
+    end if;
+
     v_product_is_digital := (
       coalesce((v_product ->> 'isDigital')::boolean, false)
       or lower(coalesce(v_product ->> 'productType', '')) in ('digital', 'digital-model', 'digital-download')
@@ -249,6 +269,15 @@ begin
     end if;
 
     v_clean_item := jsonb_build_object('product', v_product, 'quantity', v_quantity);
+    if nullif(btrim(coalesce(v_item ->> 'id', '')), '') is not null then
+      v_clean_item := v_clean_item || jsonb_build_object('id', left(btrim(v_item ->> 'id'), 128));
+    end if;
+    if v_selected_color is not null then
+      v_clean_item := v_clean_item || jsonb_build_object('selectedColor', v_selected_color);
+    end if;
+    if v_selected_material is not null then
+      v_clean_item := v_clean_item || jsonb_build_object('selectedMaterial', v_selected_material);
+    end if;
     v_clean_items := v_clean_items || jsonb_build_array(v_clean_item);
   end loop;
 
@@ -424,7 +453,10 @@ begin
     'customer_email', lower(trim(p_customer_email)),
     'items', (
       select coalesce(jsonb_agg(jsonb_build_object(
+        'id', i.item ->> 'id',
         'quantity', (i.item ->> 'quantity')::integer,
+        'selectedColor', i.item ->> 'selectedColor',
+        'selectedMaterial', i.item ->> 'selectedMaterial',
         'product', jsonb_build_object(
           'id', i.item #>> '{product,id}',
           'name', i.item #>> '{product,name}',
@@ -662,7 +694,6 @@ begin
   return new;
 end;
 $function$;
-
 revoke all on function private.prepare_public_store_order() from public, anon, authenticated;
 revoke all on function private.normalize_admin_store_order_update() from public, anon, authenticated;
 revoke all on function private.audit_store_order_change() from public, anon, authenticated;
