@@ -28,26 +28,6 @@
   ],
   "rewrites": [
     {
-      "source": "/assets/:path*",
-      "destination": "https://layer-labs-ljeu1jeof-layer-labs.vercel.app/assets/:path*"
-    },
-    {
-      "source": "/models/:path*",
-      "destination": "https://layer-labs-ljeu1jeof-layer-labs.vercel.app/models/:path*"
-    },
-    {
-      "source": "/catalog/:path*",
-      "destination": "https://layer-labs-ljeu1jeof-layer-labs.vercel.app/catalog/:path*"
-    },
-    {
-      "source": "/favicon.svg",
-      "destination": "https://layer-labs-ljeu1jeof-layer-labs.vercel.app/favicon.svg"
-    },
-    {
-      "source": "/layerlabs-print-feature.webp",
-      "destination": "https://layer-labs-ljeu1jeof-layer-labs.vercel.app/layerlabs-print-feature.webp"
-    },
-    {
       "source": "/(.*)",
       "destination": "/"
     }
