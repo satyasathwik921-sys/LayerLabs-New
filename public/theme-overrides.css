@@ -1,0 +1,130 @@
+/* LayerLabs mobile readability and persistent theme overrides */
+.intro-strip p {
+  font-family: "Manrope", Inter, sans-serif !important;
+  font-size: clamp(22px, 5.2vw, 29px) !important;
+  font-weight: 650 !important;
+  line-height: 1.48 !important;
+  letter-spacing: -0.035em !important;
+}
+.service-row h3 {
+  font-size: clamp(17px, 2.1vw, 20px) !important;
+  line-height: 1.35 !important;
+}
+.service-row p {
+  font-size: clamp(13px, 1.35vw, 15px) !important;
+  line-height: 1.65 !important;
+}
+.process-step h3,
+.process-step h4 {
+  font-size: clamp(17px, 1.65vw, 20px) !important;
+  line-height: 1.4 !important;
+}
+.process-step p {
+  font-size: clamp(13px, 1.35vw, 15px) !important;
+  line-height: 1.75 !important;
+  max-width: 290px !important;
+}
+.process-top > span {
+  width: 54px !important;
+  height: 54px !important;
+  flex: 0 0 54px !important;
+  font-size: 14px !important;
+}
+.theme-toggle-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-inline: 4px;
+  border: 1px solid var(--line, #d8d9da);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: 600 20px/1 "Manrope", sans-serif;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.theme-toggle-button:hover {
+  background: #e9edfb;
+  border-color: #9caefa;
+  transform: translateY(-1px);
+}
+.theme-toggle-button:focus-visible {
+  outline: 3px solid #3765ff;
+  outline-offset: 3px;
+}
+html[data-theme-mode="dark"] { color-scheme: dark; }
+html[data-theme-mode="dark"] body {
+  background: #111318 !important;
+  color: #f1f2f4 !important;
+}
+html[data-theme-mode="dark"] .site-header,
+html[data-theme-mode="dark"] .site-footer,
+html[data-theme-mode="dark"] .process-section,
+html[data-theme-mode="dark"] .mobile-drawer,
+html[data-theme-mode="dark"] .cart-drawer,
+html[data-theme-mode="dark"] .page-hero,
+html[data-theme-mode="dark"] .projects-gallery-copy,
+html[data-theme-mode="dark"] .projects-gallery-item,
+html[data-theme-mode="dark"] .final-cta,
+html[data-theme-mode="dark"] .service-section,
+html[data-theme-mode="dark"] .intro-strip {
+  background: #171a20 !important;
+  color: #f1f2f4 !important;
+}
+html[data-theme-mode="dark"] [class~="bg-ivory"],
+html[data-theme-mode="dark"] [class~="bg-white"],
+html[data-theme-mode="dark"] [class~="bg-stone-light"],
+html[data-theme-mode="dark"] [class~="bg-stone"] {
+  background-color: #1e2229 !important;
+}
+html[data-theme-mode="dark"] [class~="text-graphite"],
+html[data-theme-mode="dark"] [class~="text-black"] {
+  color: #f1f2f4 !important;
+}
+html[data-theme-mode="dark"] [class~="text-graphite-muted"],
+html[data-theme-mode="dark"] [class~="text-graphite-faint"],
+html[data-theme-mode="dark"] .service-row p,
+html[data-theme-mode="dark"] .process-step p,
+html[data-theme-mode="dark"] .section-deck,
+html[data-theme-mode="dark"] .process-side-note {
+  color: #b5bbc6 !important;
+}
+html[data-theme-mode="dark"] [class~="border-stone-border"],
+html[data-theme-mode="dark"] .service-row,
+html[data-theme-mode="dark"] .service-list,
+html[data-theme-mode="dark"] .intro-strip,
+html[data-theme-mode="dark"] .gallery-item {
+  border-color: #373d47 !important;
+}
+html[data-theme-mode="dark"] .service-row-icon,
+html[data-theme-mode="dark"] .category-arrow {
+  background: #252e49 !important;
+  color: #a9bbff !important;
+}
+html[data-theme-mode="dark"] input,
+html[data-theme-mode="dark"] textarea,
+html[data-theme-mode="dark"] select {
+  background: #191d24 !important;
+  color: #f1f2f4 !important;
+  border-color: #444b58 !important;
+}
+html[data-theme-mode="dark"] .theme-toggle-button {
+  background: #252a35;
+  border-color: #525d70;
+  color: #f6d36b;
+}
+@media (max-width: 640px) {
+  .intro-strip p { font-size: 23px !important; line-height: 1.5 !important; }
+  .service-row { min-height: 118px !important; grid-template-columns: 24px 44px minmax(0,1fr) 18px !important; gap: 10px !important; }
+  .service-row-icon { width: 42px !important; height: 42px !important; }
+  .service-row h3 { font-size: 18px !important; }
+  .service-row p { font-size: 14px !important; line-height: 1.6 !important; }
+  .process-grid { row-gap: 28px !important; column-gap: 18px !important; }
+  .process-top { gap: 12px !important; margin-bottom: 18px !important; }
+  .process-top > span { width: 50px !important; height: 50px !important; flex-basis: 50px !important; }
+  .process-step h3, .process-step h4 { font-size: 18px !important; }
+  .process-step p { font-size: 14px !important; line-height: 1.75 !important; }
+  .theme-toggle-button { width: 34px; height: 34px; margin-inline: 2px; }
+}
