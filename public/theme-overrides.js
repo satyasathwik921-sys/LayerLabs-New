@@ -1,6 +1,6 @@
 (() => {
   const themeKey = "layerlabs-theme-mode";
-  const introCopy = "A useful idea deserves more than a good render. We help you think it through, make it tangible, and get the details right.";
+  const introCopy = "Good ideas deserve more than a great render. We help you refine the design, make it real, and get every detail right."
 
   const safeStorage = {
     get() { try { return localStorage.getItem(themeKey); } catch { return null; } },
@@ -66,12 +66,19 @@
     });
   }
 
+  function simplifyIntro() {
+    document.querySelectorAll(".intro-strip p").forEach((node) => {
+      if (node.textContent !== introCopy) node.textContent = introCopy;
+    });
+  }
+
   function keepGalleryDataIntact() {
     // Gallery card 2 is hidden in CSS; don't remove React-owned nodes here.
   }
 
   function enhance() {
     ensureThemeButton();
+    simplifyIntro();
     keepGalleryDataIntact();
   }
 
