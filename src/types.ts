@@ -24,6 +24,23 @@ export type Product = {
   tags?: string[];
   variants?: ProductVariantSet;
   specs?: Record<string, string>;
+  /** Private cloud asset reference for an imported CAD/mesh source file. */
+  modelAsset?: {
+    bucket: "modelhub-assets";
+    path: string;
+    filename: string;
+    format: string;
+    sizeBytes: number;
+    sha256: string;
+    sourceUrl: string;
+    creatorName: string;
+    licenseCode: string;
+    licenseVerifiedAt: string;
+  };
+  modelhubModelId?: string;
+  licenseCode?: string;
+  commercialAllowed?: boolean;
+  licenseVerifiedAt?: string;
 };
 
 export type ShippingOption = {
