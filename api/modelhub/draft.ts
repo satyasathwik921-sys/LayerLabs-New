@@ -78,17 +78,16 @@ export default async function handler(req: any, res: any) {
         `/storage/v1/object/upload/sign/${BUCKET}/${objectPath.split("/").map(encodeURIComponent).join("/")}`,
         { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ upsert: false }) }
       );
-      const signedURL = String(signed.url || signed.signedURL || "");
-      const token = String(signed.token || "");
-      if (!signedURL && !token) throw new Error("Supabase did not return a signed upload URL.");
-      const uploadUrl = signedURL.startsWith("http")
-        ? signedURL
-        : cfg.url + (signedURL.startsWith("/") ? signedURL : `/storage/v1${signedURL.startsWith("object/") ? "/" : "/"}${signedURL}`);
+      const signedPath = String(signed.url || signed.signedURL || "");
+      if (!signedPath) throw new Error("Supabase did not return a signed upload URL.");
+      const uploadUrl = signedPath.startsWith("http") ? signedPath : `${cfg.url}/storage/v1${signedPath.startsWith("/") ? signedPath : `/${signedPath}`}`;
+      const token = new URL(uploadUrl).searchParams.get("token");
+      if (!token) throw new Error("Supabase signed upload response did not include a token.");
       return response(res, 200, {
         bucket: BUCKET,
         objectPath,
         uploadUrl,
-        uploadToken: token || null,
+        uploadToken: token,
         contentType: mime,
         maxBytes: MAX_BYTES,
         expiresInSeconds: 7200,
